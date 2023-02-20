@@ -8,16 +8,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 .card{
-    background-color: aqua;
-    align-items: center;
+     align-items: center;
     margin: auto;
+    border: none;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.card-body{
+    border-radius: 10px;
     border: solid #575DFB;
 }
+
 .form-control{
     background-color: #575DFB;
     border: 2px solid #4CAF50;
-
 }
+
 .title{
     font-weight: 700;
     color: #575DFB;
