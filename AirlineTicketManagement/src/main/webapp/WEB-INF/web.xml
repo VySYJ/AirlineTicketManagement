@@ -8,6 +8,10 @@
         <servlet-name>AccountManagementController</servlet-name>
         <servlet-class>com.Controller.AccountManagementController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>com.Controller.HomeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountManagemetController</servlet-name>
         <url-pattern>/AccountManagemetController</url-pattern>
@@ -16,12 +20,16 @@
         <servlet-name>AccountManagementController</servlet-name>
         <url-pattern>/AccountManagementController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
-        </session-config>
-         <welcome-file-list>
-            <welcome-file>/</welcome-file>
-        </welcome-file-list>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>/</welcome-file>
+    </welcome-file-list>
 </web-app>
