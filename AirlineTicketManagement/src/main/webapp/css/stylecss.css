@@ -14,31 +14,59 @@ h1{
     padding: 10px;
     width: 600px;
     border: 1px;
+    border-radius: 30px;
 }
 
-.text{
-    color:white;
-    background-color: rgb(99, 161, 223);
-    width: 80px;
-    margin-left: 350px;
-    padding-left: 10px;
-    border: 1px ;
-}
-
-table, td, th{
-     border-bottom: 1px solid black; 
+.Go .Go-1,td,th{
+    border-bottom: 1px solid black; 
     border-collapse:collapse;
     text-align: left;
 }
 
-table{
+.Go .Go-1{
     width: 800px;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 20px; 
     margin-bottom: 10px;
-    background-color: rgb(180, 177, 177);
+    background-color: rgb(222, 214, 214);
+    border: 1px solid black;
+    
 }
 
+.return .return-1,td,th{
+    border-bottom: 1px solid black; 
+    border-collapse:collapse;
+    text-align: left;
+}
+
+.return .return-1{
+    width: 800px;
+    margin: auto;
+    margin-top: 20px; 
+    margin-bottom: 10px;
+    background-color: rgb(222, 214, 214);
+    border: 1px solid black;
+}
+.Go .text1{
+    
+    color:white;
+    background-color: rgb(99, 161, 223);
+    width: 70px;
+    margin: 30px 0 -10px 350px;
+    padding: 10px;
+    border: 1px ;
+    border-radius: 10px;
+}
+
+.return .text2{
+    color:white;
+    background-color: rgb(99, 161, 223);
+    width: 70px;
+    margin: 30px 0 30px 350px;
+    padding: 10px;
+    border: 1px ;
+    border-radius: 10px;
+}
 .btn{
    background-color:  rgb(16, 234, 12);
    color: white;
