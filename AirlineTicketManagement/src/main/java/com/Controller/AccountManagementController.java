@@ -4,12 +4,15 @@
  */
 package com.Controller;
 
+import com.Dao.AccountDAO;
+import com.models.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -56,6 +59,18 @@ public class AccountManagementController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         String path = request.getRequestURI();
+         if (path.endsWith("/")) {
+            request.getRequestDispatcher("/AccountManagement.jsp").forward(request, response);
+        } else {
+             if (path.startsWith("/Delete/")) {
+                        String[] s = path.split("/");
+                        String AccountID = s[s.length - 1];
+                        AccountDAO dao = new AccountDAO();
+                        dao.delete(AccountID);
+                        response.sendRedirect("/");
+                    }
+        }
     }
 
     /**
@@ -70,6 +85,7 @@ public class AccountManagementController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+       
     }
 
     /**
