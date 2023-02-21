@@ -39,7 +39,7 @@ public class AccountDAO {
         ResultSet rs = null;
         try {
             Statement st = conn.createStatement();
-            rs = st.executeQuery("Select * from Account where role_id=2");
+            rs = st.executeQuery("Select * from Account where RoleID=2");
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,11 +91,11 @@ public class AccountDAO {
     }
 
 
-    public int delete(int account_id) {
+    public int delete(String AccountID) {
         int count = 0;
         try {
             PreparedStatement pst = conn.prepareStatement("Delete from Account where AccountID=?");
-            pst.setInt(1, account_id);
+            pst.setString(1, AccountID);
             count = pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,4 +134,6 @@ public class AccountDAO {
             throw new RuntimeException(e);
         }
     }
+
+   
 }
