@@ -20,11 +20,19 @@
 </head>
 
 <body>
+    
+
     <div id="wrapper">
         <div class="container">
             <div class="row justify-content-around">
-                <form action="" class="col-md-6 p-3" method="" name="" id="MyForm">
+                <form action="Account/*" class="col-md-6 p-3" method="post" name="" id="MyForm">
                     <h1 class="text-center h3">THÊM TÀI KHOẢN</h1>
+                    <div class="form-group ">
+                        <label for="textAcRoleID">RoleID</label>
+                        <input type="text" name="textAcRoleID" id="textAcRoleID" value="1" class="form-control">
+
+                    </div>
+
                     <div class="form-group ">
                         <label for="textAcID">ID</label>
                         <input type="text" name="textAcID" id="textAcID" class="form-control">

@@ -255,9 +255,12 @@
                 margin-top: 30px;
                 text-align: center;
             }
-            .table-go p{
+            .btn{
                 float: right;
                 margin-right: 100px;
+                border: 1px solid black;
+                border-radius: 10px;
+                background-color: rgb(16, 234, 12);
             }
 
             .search-box{
@@ -310,7 +313,9 @@
         </div>
         <div class="table-go">
             <h2>Quản lí tài khoản<h2>
-                    <p><button type="button" class="btn btn-success">Thêm tài khoản</button></p>
+                    <!--                    <p><button type="button" class="btn btn-success">Thêm tài khoản</button></p>-->
+
+                    <a href = "AddAccount.jsp"  class="btn" >Thêm tài khoản</a>
                     <div class="search-box">
                         <div class="input-group">
                             <input type="text" id="search" class="form-control" placeholder="Tìm Kiếm">
@@ -345,9 +350,9 @@
                                         <td><%= rs.getString("Password")%></td>
                                         <td><%= rs.getString("Email")%></td>
                                         <td><%= rs.getInt("RoleID")%></td>
-
+                                        
                                         <td>
-                                            <a href="#" class="edit" title="Change Permission" data-toggle="tooltip"><i
+                                            <a href="/Account/Change/<%= rs.getString("Username")%>"<i
                                                     class="material-icons">&#xe869;</i></a>
 
                                         </td>
@@ -365,7 +370,6 @@
 
                                 </tbody>
                             </table>
-
 
                         </div>
                     </div>
