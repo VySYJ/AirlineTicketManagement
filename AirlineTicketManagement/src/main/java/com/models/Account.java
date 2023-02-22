@@ -12,7 +12,7 @@ import com.Dao.*;
  */
 public class Account {
 
-    public String AccountID;
+    public int AccountID;
     public String Username;
     public String Password;
     public String Email;
@@ -21,7 +21,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String AccountID, String Username, String Password, String Email, int RoleID) {
+    public Account(int AccountID, String Username, String Password, String Email, int RoleID) {
         this.AccountID = AccountID;
         this.Username = Username;
         this.Password = Password;
@@ -29,11 +29,11 @@ public class Account {
         this.RoleID = RoleID;
     }
 
-    public String getAccountID() {
+    public int getAccountID() {
         return AccountID;
     }
 
-    public void setAccountID(String AccountID) {
+    public void setAccountID(int AccountID) {
         this.AccountID = AccountID;
     }
 
