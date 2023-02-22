@@ -37,7 +37,7 @@ public class AccountManagementController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AccountManagementController</title>");            
+            out.println("<title>Servlet AccountManagementController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AccountManagementController at " + request.getContextPath() + "</h1>");
@@ -58,18 +58,24 @@ public class AccountManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-         String path = request.getRequestURI();
-         if (path.endsWith("/")) {
-            request.getRequestDispatcher("/AccountManagement.jsp").forward(request, response);
+        String path = request.getRequestURI();
+        if (path.endsWith("/Account")) {
+            request.getRequestDispatcher("/AccountManagement.jsp").forward(request, response); //này là bài mới bị lỗi nè
         } else {
-             if (path.startsWith("/Delete/")) {
-                        String[] s = path.split("/");
-                        String AccountID = s[s.length - 1];
-                        AccountDAO dao = new AccountDAO();
-                        dao.delete(AccountID);
-                        response.sendRedirect("/");
-                    }
+            if (path.startsWith("/Account/Delete/")) {
+                int count = 0;
+                String[] s = path.split("/");
+                String AccountID = s[s.length - 1];
+                AccountDAO dao = new AccountDAO();
+                count = dao.delete(AccountID);
+                if (count > 0) {
+                    response.sendRedirect("/Account");
+                } else {
+                    request.getRequestDispatcher("/HomePage.jsp").forward(request, response);
+                }
+
+            } else {
+            }
         }
     }
 
@@ -85,7 +91,7 @@ public class AccountManagementController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-       
+
     }
 
     /**
