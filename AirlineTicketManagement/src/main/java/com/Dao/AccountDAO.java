@@ -46,11 +46,11 @@ public class AccountDAO {
         return rs;
     }
 
-    public Account getAccount(String account_email) {
+    public Account getAccount(String Email) {
         Account account = null;
         try {
-            PreparedStatement pst = conn.prepareStatement("Select * from Account where account_email=?");
-            pst.setString(1, account_email);
+            PreparedStatement pst = conn.prepareStatement("Select * from Account where Email=?");
+            pst.setString(1, Email);
             ResultSet rs = pst.executeQuery();
             rs.next();
             account = new Account(rs.getString("AccountID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("RoleID"));
@@ -60,11 +60,11 @@ public class AccountDAO {
         return account;
     }
 
-    public Account getAccountBy(String account_id) {
+    public Account getAccountBy(String AccountID) {
         Account account = null;
         try {
-            PreparedStatement pst = conn.prepareStatement("Select * from Account where account_id=?");
-            pst.setString(1, account_id);
+            PreparedStatement pst = conn.prepareStatement("Select * from Account where AccountID=?");
+            pst.setString(1, AccountID);
             ResultSet rs = pst.executeQuery();
             rs.next();
             account = new Account(rs.getString("AccountID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("RoleID"));
