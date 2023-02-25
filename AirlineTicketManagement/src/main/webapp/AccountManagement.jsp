@@ -353,7 +353,7 @@
 
                                         </td>
                                         <td>
-                                            <a href="/Account/Delete/<%= rs.getString("AccountID")%>"title="Delete" data-toggle="tooltip"><i
+                                            <a onclick="return confirm('Có phải bạn muốn chắc chắn xóa?')" href="/Account/Delete/<%= rs.getString("AccountID")%>"title="Delete" data-toggle="tooltip"><i
                                                     class="material-icons">&#xE872;</i></a>
 
                                         </td>
