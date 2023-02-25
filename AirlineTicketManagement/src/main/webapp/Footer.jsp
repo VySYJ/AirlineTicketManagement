@@ -145,9 +145,12 @@
                                 <li><a href="#">Đặt khách sạn</a></li>
                             </ul>
                         </div>
-                        <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
-
-                        </div>
+                        <div class="col-lg-3 item social">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15716.121243810863!2d105.72206247432861!3d10.014354919206934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0882139720a77%3A0x3916a227d0b95a64!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgQ-G6p24gVGjGoQ!5e0!3m2!1sen!2s!4v1666801942609!5m2!1sen!2s"
+                            width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                         <p class="copyright">Copyright @2023 | Design By VY_SYJ</p>
                     </div>
                 </div>

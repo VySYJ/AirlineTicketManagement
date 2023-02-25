@@ -4,12 +4,17 @@
  */
 package com.Controller;
 
+import com.Dao.AccountDAO;
+import com.models.Account;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -34,7 +39,7 @@ public class HomeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeController</title>");            
+            out.println("<title>Servlet HomeController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
@@ -55,7 +60,10 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("HomePage.jsp").forward(request, response);
+        String path = request.getRequestURI();
+        if (path.startsWith("/")) {
+            request.getRequestDispatcher("HomePage.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -69,7 +77,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**

@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>HomePage</title>
+        <title>HomePageUser</title>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -36,6 +36,8 @@
                 background-repeat: no-repeat;
                 background-size: cover;
                 margin-top: 50px;
+
+
             }
 
             .Homepageimg h1 {
@@ -326,9 +328,7 @@
     <body>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-
-        <%@include file="Header.jsp" %>
-        
+        <%@include file="HeaderUser.jsp" %>
         <div class="Homepage">
             <div class="Homepageimg">
                 <h1>Welcome to our flight booking website <br>

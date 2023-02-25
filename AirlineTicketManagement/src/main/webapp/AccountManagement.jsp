@@ -314,6 +314,7 @@
                     <div class="search-box">
                         <div class="input-group">
                             <input type="text" id="search" class="form-control" placeholder="Tìm Kiếm">
+                            
                         </div>
                     </div>
                     </div>
@@ -326,8 +327,10 @@
                                         <th style="width: 20%;">Tên đăng nhập</th>
                                         <th style="width: 30%;">Mật Khẩu</th>
                                         <th style="width: 30%;">Email</th>
+                                        <th>RoldID </th>
                                         <th style="width: 5%;"></th>
                                         <th style="width: 5%;"></th>
+
                                     </tr>
                                 </thead>
                                 <%
@@ -337,7 +340,8 @@
                                 %>
                                 <tbody>
                                     <tr>
-                                        <td><%= rs.getString("AccountID")%></td>
+
+                                        <td><%= rs.getInt("AccountID")%></td>
                                         <td><%= rs.getString("Username")%></td>
                                         <td><%= rs.getString("Password")%></td>
                                         <td><%= rs.getString("Email")%></td>
@@ -349,12 +353,14 @@
 
                                         </td>
                                         <td>
-                                            <a href="/Delete/<%= rs.getString("AccountID")%>" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                            
+                                            <a href="/Account/Delete/<%= rs.getString("AccountID")%>"title="Delete" data-toggle="tooltip"><i
+                                                    class="material-icons">&#xE872;</i></a>
+
                                         </td>
                                         <%
                                             }
                                         %>
+
 
                                     </tr>
 
