@@ -4,6 +4,7 @@
     Author     : LeThiThuyVy_CE160174
 --%>
 
+<%@page import="com.models.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -48,7 +49,6 @@
                 max-width: 550px;
                 width: 100%;
                 background: white;
-                box-shadow: 2px 1px 10px 1px;
                 align-items: center;
                 justify-content: center;
             }
@@ -150,26 +150,31 @@
 
     <body>
         <%@include file="HeaderUser.jsp" %>
-
+        <%
+            //Account acc = (Account) session.getAttribute("acc");
+        %>
         <div class="formbold-main-wrapper">
             <div class="formbold-form-wrapper">
-                <form class="/SignIn/EditAccount" action="/SignIn/EditAccount" method="POST">
+                <form class="" action="/SignIn/EditAccount" method="post">
                     <div class="title">
                         <h2 class="text-align">Chỉnh Sửa Tài Khoản</h2>
+                        <input value="<%=ac.AccountID%>" type="hidden" name="txtaccountid"/>
+                        <input value="<%=ac.RoleID%>" type="hidden" name="txtroleid"/>
+
                     </div>
                     <div class="formbold-mb-5">
                         <label for="name" class="formbold-form-label"> Tên đăng nhập </label>
-                        <input type="text" name="name" id="name" placeholder="Tên đăng nhập" class="formbold-form-input" />
+                        <input value="<%=ac.Username%>" type="text" name="txtusername" id="name" class="formbold-form-input" />
                     </div>
                     <div class="formbold-mb-5">
                         <label for="phone" class="formbold-form-label"> Email </label>
-                        <input type="email" name="email" id="email" placeholder="Enter your email"
+                        <input value="<%=ac.Email%>" type="email" name="txtemail" id="email" 
                                class="formbold-form-input" />
                     </div>
                     <div class="formbold-mb-5">
                         <label for="email" class="formbold-form-label"> Mật khẩu </label>
-                        <input type="password" name="password" id="password" placeholder="*******"
-                               class="formbold-form-input " disabled />
+                        <input value="<%=ac.Password%>" type="password" name="txtpassword" id="password"
+                               class="formbold-form-input"/>
                     </div>
 
                     <div>

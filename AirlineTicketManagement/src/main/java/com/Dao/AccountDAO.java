@@ -49,7 +49,7 @@ public class AccountDAO {
     public Account getAccount(String account_email) {
         Account account = null;
         try {
-            PreparedStatement pst = conn.prepareStatement("Select * from Account where account_email=?");
+            PreparedStatement pst = conn.prepareStatement("Select * from Account where Email=?");
             pst.setString(1, account_email);
             ResultSet rs = pst.executeQuery();
             rs.next();
@@ -79,7 +79,7 @@ public class AccountDAO {
     public Account getAccountBy(String account_id) {
         Account account = null;
         try {
-            PreparedStatement pst = conn.prepareStatement("Select * from Account where account_id=?");
+            PreparedStatement pst = conn.prepareStatement("Select * from Account where AccountID=?");
             pst.setString(1, account_id);
             ResultSet rs = pst.executeQuery();
             rs.next();
@@ -89,7 +89,22 @@ public class AccountDAO {
         }
         return account;
     }
-    
+
+    public int update(Account account) throws SQLException {
+        int count = 0;
+        try {
+            PreparedStatement pst = conn.prepareStatement("Update Account set Username=?, Email=?, Password=?, RoleID=? where AccountID=?");
+            pst.setInt(5, account.AccountID);
+            pst.setString(1, account.Username);
+            pst.setString(2, account.Email);
+            pst.setString(3, account.Password);
+            pst.setInt(4, account.RoleID);
+            count = pst.executeUpdate();
+        } catch (Exception e) {
+        }
+        return count;
+    }
+
     public boolean checkUsername(String input) {
         ResultSet rs = null;
         boolean check = false;

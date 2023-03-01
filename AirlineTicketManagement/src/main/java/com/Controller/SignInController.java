@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -67,17 +70,26 @@ public class SignInController extends HttpServlet {
             request.getRequestDispatcher("/SignUp.jsp").forward(request, response);
         } else if (path.endsWith("SignIn/SignOut")) {
             Cookie[] ck = request.getCookies();
-                for (Cookie o : ck) {
-                    o.setValue("");
-                    o.setMaxAge(0);
-                    response.addCookie(o);
-                }
+            for (Cookie o : ck) {
+                o.setValue("");
+                o.setMaxAge(0);
+                response.addCookie(o);
+            }
             response.sendRedirect("/");
         } else if (path.endsWith("SignIn/HomeUser")) {
             request.getRequestDispatcher("/HomePageUser.jsp").forward(request, response);
         } else if (path.endsWith("SignIn/EditAccount")) {
+//            String[] s = path.split("/");
+//            String accountid = s[s.length - 1];
+//            AccountDAO dao = new AccountDAO();
+//            Account ac = dao.getAccountBy(accountid);
+//            if (ac == null) {
+//                response.sendRedirect("/");
+//            } else {
+//                HttpSession session = request.getSession();
+//                session.setAttribute("account", ac);
             request.getRequestDispatcher("/EditAccount.jsp").forward(request, response);
-
+//            }
         }
     }
 
@@ -92,10 +104,12 @@ public class SignInController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int accountID, roleID;
+        String username, password, email;
         boolean isLogin = false;
         if (request.getParameter("btnLogin") != null) {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+            username = request.getParameter("username");
+            password = request.getParameter("password");
             AccountDAO dao = new AccountDAO();
             String passMd5 = dao.getMd5(password);
             Account ac = dao.getAccountby(username);
@@ -122,37 +136,68 @@ public class SignInController extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/SignIn.jsp");
                 dispatcher.forward(request, response);
             }
-        } else {
-            if (request.getParameter("btnSignUp") != null) {
-                AccountDAO dao = new AccountDAO();
-                String username = request.getParameter("txtdkusername");
-                boolean check = dao.checkUsername(username);
-                if (check == true) {
-                    request.setAttribute("mess", "Tên đăng nhập đã tồn tại!");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/SignUp.jsp");
+        } else if (request.getParameter("btnSignUp") != null) {
+            AccountDAO dao = new AccountDAO();
+            username = request.getParameter("txtdkusername");
+            boolean check = dao.checkUsername(username);
+            if (check == true) {
+                request.setAttribute("mess", "Tên đăng nhập đã tồn tại!");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/SignUp.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                password = request.getParameter("txtdkpassword1");
+                String passMd5 = dao.getMd5(password);
+                email = request.getParameter("txtemail");
+                int RoleID = 2;
+                int AccountID = dao.getSize() + 1;
+                Account st = new Account(AccountID, username, passMd5, email, RoleID);
+                int count = dao.addNew(st);
+                if (count > 0) {
+                    request.setAttribute("mess", "Đăng ký thành công! Đăng Nhập Ngay!");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/SignIn.jsp");
                     dispatcher.forward(request, response);
                 } else {
-                    String password = request.getParameter("txtdkpassword1");
-                    String passMd5 = dao.getMd5(password);
-                    String email = request.getParameter("txtemail");
-                    int RoleID = 2;
-                    int AccountID = dao.getSize() + 1;
-                    Account st = new Account(AccountID, username, passMd5, email, RoleID);
-                    int count = dao.addNew(st);
-                    if (count > 0) {
-                        request.setAttribute("mess", "Đăng ký thành công! Đăng Nhập Ngay!");
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("/SignIn.jsp");
-                        dispatcher.forward(request, response);
-
-                    } else {
-                        request.setAttribute("mess", "Đăng ký không thành công!");
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("/SignUp.jsp");
-                        dispatcher.forward(request, response);
-                    }
+                    request.setAttribute("mess", "Đăng ký không thành công!");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/SignUp.jsp");
+                    dispatcher.forward(request, response);
                 }
             }
-            //dang ky
+        }
+        if (request.getParameter("btnEditAc") != null) {
+            int count = 0;
+            accountID = Integer.parseInt(request.getParameter("txtaccountid"));
+            roleID = Integer.parseInt(request.getParameter("txtroleid"));
+            username = request.getParameter("txtusername");
+            password = request.getParameter("txtpassword");
+            email = request.getParameter("txtemail");
+            AccountDAO dao = new AccountDAO();
+            String passMd5 = dao.getMd5(password);
 
+            boolean check = dao.checkUsername(username);
+            if (check == true) {
+                request.setAttribute("mess", "Tên đăng nhập đã tồn tại!");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/EditAccount.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                Account ac = new Account(accountID, username, password, email, roleID);
+                try {
+                    count = dao.update(ac);
+                    if (count > 0) {
+                        request.setAttribute("mess", "Chỉnh sửa thành công!");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("acc", ac);
+//                        RequestDispatcher dispatcher = request.getRequestDispatcher("/SignIn.jsp");
+//                        dispatcher.forward(request, response);
+                        response.sendRedirect("/SignIn/HomeUser");
+                    } else {
+                        request.setAttribute("mess", "Chỉnh sửa không thành công!");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/EditAccount.jsp");
+                        dispatcher.forward(request, response);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
