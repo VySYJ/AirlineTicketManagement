@@ -37,7 +37,7 @@ public class AccountManagementController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AccountManagementController</title>");            
+            out.println("<title>Servlet AccountManagementController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AccountManagementController at " + request.getContextPath() + "</h1>");
@@ -58,18 +58,43 @@ public class AccountManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-         String path = request.getRequestURI();
-         if (path.endsWith("/")) {
-            request.getRequestDispatcher("/AccountManagement.jsp").forward(request, response);
+        String path = request.getRequestURI();
+        if (path.endsWith("/Account")) {
+            request.getRequestDispatcher("/AccountManagement.jsp").forward(request, response); //này là bài mới bị lỗi nè
         } else {
-             if (path.startsWith("/Delete/")) {
+            if (path.startsWith("/Account/Delete/")) {
+                int count = 0;
+                String[] s = path.split("/");
+                String AccountID = s[s.length - 1];
+                AccountDAO dao = new AccountDAO();
+                count = dao.delete(AccountID);
+                if (count > 0) {
+                    response.sendRedirect("/Account");
+                } else {
+                    request.getRequestDispatcher("/HomePage.jsp").forward(request, response);
+                }
+
+            } else {
+                if (path.startsWith("/Account/Change/")) {
                         String[] s = path.split("/");
-                        String AccountID = s[s.length - 1];
+                        String username = s[s.length - 1];
                         AccountDAO dao = new AccountDAO();
-                        dao.delete(AccountID);
-                        response.sendRedirect("/");
+                        String TypeAccount = dao.getTypeAccount(username);
+                        if (username.equals("1")) {
+                            response.sendRedirect("/Account");
+                        } else if (TypeAccount.equals("2")) {
+                            Account ac;
+                            ac = dao.getAccount(username);
+                            dao.SetTypeAdminAccount(ac);
+                            response.sendRedirect("/Account");
+                        } else if (TypeAccount.equals("1")) {
+                            Account ac;
+                            ac = dao.getAccount(username);
+                            dao.SetTypeCustomerAccount(ac);
+                            response.sendRedirect("/Account");
+                        }
                     }
+            }
         }
     }
 
@@ -85,7 +110,19 @@ public class AccountManagementController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-       
+        String Email = request.getParameter("Email");
+        String AccountID = request.getParameter("AccountID");
+        String UserName = request.getParameter("Username");
+        String Password = request.getParameter("Password");
+        String RoldID = request.getParameter("RoldID");
+
+        if(AccountID.isEmpty()){
+            response.sendRedirect("AddAccount.jsp");
+        }
+        AccountDAO dao = new AccountDAO();
+        dao.addNew(Email, AccountID, UserName, Password, RoldID);
+        response.sendRedirect("HomePage.jsp");
+
     }
 
     /**
