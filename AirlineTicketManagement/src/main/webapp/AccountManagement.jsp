@@ -319,6 +319,7 @@
                     <div class="search-box">
                         <div class="input-group">
                             <input type="text" id="search" class="form-control" placeholder="Tìm Kiếm">
+                            
                         </div>
                     </div>
                     </div>
@@ -345,7 +346,7 @@
                                 <tbody>
                                     <tr>
 
-                                        <td><%= rs.getString("AccountID")%></td>
+                                        <td><%= rs.getInt("AccountID")%></td>
                                         <td><%= rs.getString("Username")%></td>
                                         <td><%= rs.getString("Password")%></td>
                                         <td><%= rs.getString("Email")%></td>

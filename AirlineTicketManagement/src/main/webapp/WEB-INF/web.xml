@@ -4,9 +4,29 @@
         <servlet-name>AccountManagementController</servlet-name>
         <servlet-class>com.Controller.AccountManagementController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>com.Controller.HomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignInController</servlet-name>
+        <servlet-class>com.Controller.SignInController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccountManagementController</servlet-name>
         <url-pattern>/Account/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>//*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignInController</servlet-name>
+        <url-pattern>/SignIn/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignInController</servlet-name>
+        <url-pattern>/SignIn</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

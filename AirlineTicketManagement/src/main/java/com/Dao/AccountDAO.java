@@ -53,28 +53,61 @@ public class AccountDAO {
             pst.setString(1, userName);
             ResultSet rs = pst.executeQuery();
             rs.next();
-            account = new Account(rs.getString("AccountID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("RoleID"));
+            account = new Account(rs.getInt("AccountID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("RoleID"));
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return account;
     }
 
-    public Account getAccountBy(String AccountID) {
+    public Account getAccountby(String username) {
+        Account ac = null;
+        try {
+            PreparedStatement pst = conn.prepareStatement("Select * from Account WHERE Username=?");
+            pst.setString(1, username);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                ac = new Account(rs.getInt("AccountID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("RoleID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ac;
+    }
+
+    public Account getAccountBy(String account_id) {
         Account account = null;
         try {
             PreparedStatement pst = conn.prepareStatement("Select * from Account where AccountID=?");
-            pst.setString(1, AccountID);
-            ResultSet rs = pst.executeQuery();
-            rs.next();
-            account = new Account(rs.getString("AccountID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("RoleID"));
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            pst.setString(1, account_id);
+
+    public int update(Account account) throws SQLException {
+        int count = 0;
+        try {
+            PreparedStatement pst = conn.prepareStatement("Update Account set Username=?, Email=?, Password=?, RoleID=? where AccountID=?");
+            pst.setInt(5, account.AccountID);
+            pst.setString(1, account.Username);
+            pst.setString(2, account.Email);
+            pst.setString(3, account.Password);
+            pst.setInt(4, account.RoleID);
+            count = pst.executeUpdate();
+        } catch (Exception e) {
         }
-        return account;
+        return count;
     }
 
-    
+    public boolean checkUsername(String input) {
+        ResultSet rs = null;
+        boolean check = false;
+        try {
+            Statement st = conn.createStatement();
+            rs = st.executeQuery("Select Username from Account");
+            while (rs.next()) {
+                if (input.equals(rs.getString("Username"))) {
+                    check = true;
+                    break;
+                }
     public int updateAccount(Account ac) {
         int count = 0;
         try {
@@ -99,11 +132,11 @@ public class AccountDAO {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 typeAcc = rs.getString("RoleID");
-            }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return check;
+    }
         return typeAcc;
     }
     
@@ -124,44 +157,21 @@ public class AccountDAO {
         return count;
     }
 
-    /**
-     * Lay thong tin cua mot khach hang dua vao makh
-     *
-     * @param ac
-     * @return mot doi tuong chua thong tin cua khach hang can tim
-     */
-    public int SetTypeCustomerAccount(Account ac) {
-        int count = 0;
-        int id = 2;
-        try {
-            PreparedStatement pst = conn.prepareStatement("update Account set Password=?, AccountID=?, Email=?, RoleID=? where Username=?");
-            pst.setString(1, ac.Password);
-            pst.setString(2, ac.AccountID);
-            pst.setString(3, ac. Email);
-            pst.setInt(4, id);
-            pst.setString(5, ac.Username);
-            count = pst.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return count;
-    }
     public int addNew(Account account) {
         int count = 0;
         try {
             PreparedStatement pst = conn.prepareStatement("Insert into Account values(?,?,?,?,?)");
-            pst.setString(1, account.getAccountID());
-            pst.setString(2, account.getUsername());
-            pst.setString(3, account.getPassword());
-            pst.setString(4, account.getEmail());
-            pst.setInt(5, account.getRoleID());
+            pst.setInt(1, account.AccountID);
+            pst.setString(2, account.Username);
+            pst.setString(3, account.Password);
+            pst.setString(4, account.Email);
+            pst.setInt(5, account.RoleID);
             count = pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }
-
 
     public int delete(String AccountID) {
         int count = 0;
@@ -206,10 +216,4 @@ public class AccountDAO {
             throw new RuntimeException(e);
         }
     }
-
-    public void addNew(String Email, String AccountID, String UserName, String Password, String RoldID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-   
 }

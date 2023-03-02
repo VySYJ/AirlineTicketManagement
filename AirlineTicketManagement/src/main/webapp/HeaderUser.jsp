@@ -58,7 +58,6 @@
                 margin: 0 30px;
             }
             nav ul li a{
-
                 color: black;
                 font-size: large;
                 text-decoration: none;
@@ -132,7 +131,6 @@
                 #check:checked ~ ul{
                     left:  0;
                 }
-
             }
         </style>
     </head>
@@ -146,30 +144,18 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-        <%--
         <%
-            String fullname = "";
-            int RoleID = 0;
-            boolean isLogin = false;
-            if (!session.isNew()) {
-                for (Cookie c : request.getCookies()) {
-                    if (c.getName().equals("username")) {
-                        isLogin = true;
-                        fullname = c.getValue();
-                        AccountDAO Acdao = new AccountDAO();
-//                        Account ac = (Account) session.getAttribute("acc");
-                        Account ac = Acdao.getAccountby(fullname);
-                        fullname = ac.Username;
-                        RoleID = ac.RoleID;
-
-                    }
-                }
-
+            String NameHello = "";
+            Account ac = (Account) session.getAttribute("acc");
+//            Cookie ck[] = request.getCookies();
+//            for (Cookie c : ck) {
+//                if (c.getName().equals("username")) {
+//                    NameHello = c.getValue();
+//                }
+//            }
+            NameHello = ac.Username;
         %>
-        <%            if (RoleID == 2) {
-        %>
-        
-        <!-- comment 
+
         <header>
             <nav>
                 <input type="checkbox" id="check">
@@ -182,60 +168,18 @@
                     <li><a href="">Trang chủ</a></li>
                     <li><a href="">Vé quốc tế</a></li>
                     <li><a href="">Vé nội địa</a></li>
-                        <%
-                            if (fullname != "") {
-                        %>
                     <li class="dropdown show">
                         <a class="dropdown-toggle nohover" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" 
                            aria-haspopup="true" aria-expanded="false">
-                            Xin Chào <%=fullname%>
+                            Xin Chào <%=NameHello%>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item nohover" href="#">Thông tin</a>
-                            <a class="dropdown-item nohover" onclick="return confirm('Bạn có thật sự muốn đăng xuất?')"  href="<%= getServletContext().getContextPath()%>/SignIn/SignOut">Đăng Xuất</a>
+                            <a class="dropdown-item nohover" href="<%= getServletContext().getContextPath()%>/SignIn/EditAccount">Chỉnh sửa thông tin</a>
+                            <a class="dropdown-item nohover" onclick="return confirm('Bạn có thật sự muốn đăng xuất?')"  href="<%= getServletContext().getContextPath()%>/">Đăng Xuất</a>
                         </div>
                     </li>
-                    <%
-                    } else {
-                    %>
-                    <li><a class="txtlogin" href="<%= getServletContext().getContextPath()%>/SignIn">Đăng nhập</a></li>
-                    <li><a class="active" href="<%= getServletContext().getContextPath()%>/SignIn/NewAccount">Đăng ký</a></li>
-                        <%
-                            }
-                        %>
-
                 </ul>
             </nav>
         </header>
-        -->
-        <%
-            }
-        } else {
-        %>
-        --%>
-        <header>
-            <nav>
-                <input type="checkbox" id="check">
-                <label for="check" class="btncheck">
-                    <i class="fas fa-bars"></i>
-                </label>
-                <label class="logo"><a href="<%= getServletContext().getContextPath()%>/"><img class="wellcome" src="/img/logo.png"
-                                                                                               alt="Logo"></a></label>
-                <ul class="listmenu">
-                    <li><a href="<%= getServletContext().getContextPath()%>/">Trang chủ</a></li>
-                    <li><a href="">Vé quốc tế</a></li>
-                    <li><a href="">Vé nội địa</a></li>
-                    <li><a class="txtlogin" href="<%= getServletContext().getContextPath()%>/SignIn">Đăng nhập</a></li>
-                    <li><a class="active" href="<%= getServletContext().getContextPath()%>/SignIn/NewAccount">Đăng ký</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <%--
-        <%
-               }
-        %>
-        --%>
-
     </body>
 </html>
